@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C701F62716DA9A2200F2DD16 /* CApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C701F62516DA9A2200F2DD16 /* CApplication.cpp */; };
+		C701F62A16DA9DE600F2DD16 /* CWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C701F62816DA9DE600F2DD16 /* CWindow.cpp */; };
+		C701F62D16DA9FBD00F2DD16 /* CWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C701F62B16DA9FBD00F2DD16 /* CWidget.cpp */; };
 		C71BA1A116D9930100550316 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1A016D9930100550316 /* main.cpp */; };
 		C71BA1AB16D9932900550316 /* CCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1A916D9932900550316 /* CCell.cpp */; };
 		C71BA1AE16D9A2C800550316 /* CWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1AC16D9A2C800550316 /* CWorld.cpp */; };
@@ -27,6 +30,12 @@
 
 /* Begin PBXFileReference section */
 		C701F62416DA942600F2DD16 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C701F62516DA9A2200F2DD16 /* CApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CApplication.cpp; sourceTree = "<group>"; };
+		C701F62616DA9A2200F2DD16 /* CApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CApplication.h; sourceTree = "<group>"; };
+		C701F62816DA9DE600F2DD16 /* CWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWindow.cpp; sourceTree = "<group>"; };
+		C701F62916DA9DE600F2DD16 /* CWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWindow.h; sourceTree = "<group>"; };
+		C701F62B16DA9FBD00F2DD16 /* CWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWidget.cpp; sourceTree = "<group>"; };
+		C701F62C16DA9FBD00F2DD16 /* CWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWidget.h; sourceTree = "<group>"; };
 		C71BA19D16D9930100550316 /* Life++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Life++"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71BA1A016D9930100550316 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C71BA1A916D9932900550316 /* CCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCell.cpp; sourceTree = "<group>"; };
@@ -87,7 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				C71BA1A016D9930100550316 /* main.cpp */,
+				C701F62516DA9A2200F2DD16 /* CApplication.cpp */,
 				C71BA1A916D9932900550316 /* CCell.cpp */,
+				C701F62B16DA9FBD00F2DD16 /* CWidget.cpp */,
+				C701F62816DA9DE600F2DD16 /* CWindow.cpp */,
 				C71BA1AC16D9A2C800550316 /* CWorld.cpp */,
 			);
 			name = Source;
@@ -97,7 +109,10 @@
 		C71BA1B116DA8C6700550316 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				C701F62616DA9A2200F2DD16 /* CApplication.h */,
 				C71BA1AA16D9932900550316 /* CCell.h */,
+				C701F62C16DA9FBD00F2DD16 /* CWidget.h */,
+				C701F62916DA9DE600F2DD16 /* CWindow.h */,
 				C71BA1AD16D9A2C800550316 /* CWorld.h */,
 			);
 			name = Include;
@@ -158,6 +173,9 @@
 				C71BA1A116D9930100550316 /* main.cpp in Sources */,
 				C71BA1AB16D9932900550316 /* CCell.cpp in Sources */,
 				C71BA1AE16D9A2C800550316 /* CWorld.cpp in Sources */,
+				C701F62716DA9A2200F2DD16 /* CApplication.cpp in Sources */,
+				C701F62A16DA9DE600F2DD16 /* CWindow.cpp in Sources */,
+				C701F62D16DA9FBD00F2DD16 /* CWidget.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
