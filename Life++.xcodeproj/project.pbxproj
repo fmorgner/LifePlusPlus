@@ -47,12 +47,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C701F62216DA8FAD00F2DD16 /* Linked Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				C71BA1AF16D9B2F900550316 /* libncurses.dylib */,
+			);
+			name = "Linked Libraries";
+			sourceTree = "<group>";
+		};
 		C71BA19416D9930100550316 = {
 			isa = PBXGroup;
 			children = (
 				C71BA1B116DA8C6700550316 /* Include */,
-				C71BA1AF16D9B2F900550316 /* libncurses.dylib */,
 				C71BA19F16D9930100550316 /* Source */,
+				C701F62216DA8FAD00F2DD16 /* Linked Libraries */,
 				C71BA19E16D9930100550316 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 				C71BA1A816D9930100550316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
