@@ -37,14 +37,9 @@ void World::Initialize()
   
   for(pvvec::iterator it = m_vvWorld.begin(); it != m_vvWorld.end(); ++it)
     {
-    (*it).resize(m_nWidth);
-    }
-
-  for(int i = 0; i < m_vvWorld.size(); i++)
-    {
-    for(int j = 0; j < m_vvWorld[i].size(); j++)
+    for(int x = 0; x < m_nWidth; x++)
       {
-      m_vvWorld[i][j] = new Cell;
+      (*it).push_back(new Cell);
       }
     }
 
