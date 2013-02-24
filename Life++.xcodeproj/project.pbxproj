@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C71BA1A116D9930100550316 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1A016D9930100550316 /* main.cpp */; };
-		C71BA1A316D9930100550316 /* Life__.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C71BA1A216D9930100550316 /* Life__.1 */; };
+		C71BA1AB16D9932900550316 /* CCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1A916D9932900550316 /* CCell.cpp */; };
+		C71BA1AE16D9A2C800550316 /* CWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C71BA1AC16D9A2C800550316 /* CWorld.cpp */; };
+		C71BA1B016D9B2F900550316 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C71BA1AF16D9B2F900550316 /* libncurses.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +20,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				C71BA1A316D9930100550316 /* Life__.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -27,7 +28,11 @@
 /* Begin PBXFileReference section */
 		C71BA19D16D9930100550316 /* Life++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Life++"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71BA1A016D9930100550316 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C71BA1A216D9930100550316 /* Life__.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Life__.1; sourceTree = "<group>"; };
+		C71BA1A916D9932900550316 /* CCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCell.cpp; sourceTree = "<group>"; };
+		C71BA1AA16D9932900550316 /* CCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCell.h; sourceTree = "<group>"; };
+		C71BA1AC16D9A2C800550316 /* CWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWorld.cpp; sourceTree = "<group>"; };
+		C71BA1AD16D9A2C800550316 /* CWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWorld.h; sourceTree = "<group>"; };
+		C71BA1AF16D9B2F900550316 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71BA1B016D9B2F900550316 /* libncurses.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,7 +50,9 @@
 		C71BA19416D9930100550316 = {
 			isa = PBXGroup;
 			children = (
-				C71BA19F16D9930100550316 /* Life++ */,
+				C71BA1B116DA8C6700550316 /* Include */,
+				C71BA1AF16D9B2F900550316 /* libncurses.dylib */,
+				C71BA19F16D9930100550316 /* Source */,
 				C71BA19E16D9930100550316 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,14 +65,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C71BA19F16D9930100550316 /* Life++ */ = {
+		C71BA19F16D9930100550316 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				C71BA1A016D9930100550316 /* main.cpp */,
-				C71BA1A216D9930100550316 /* Life__.1 */,
+				C71BA1A916D9932900550316 /* CCell.cpp */,
+				C71BA1AC16D9A2C800550316 /* CWorld.cpp */,
 			);
-			path = "Life++";
-			sourceTree = "<group>";
+			name = Source;
+			path = src;
+			sourceTree = SOURCE_ROOT;
+		};
+		C71BA1B116DA8C6700550316 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				C71BA1AA16D9932900550316 /* CCell.h */,
+				C71BA1AD16D9A2C800550316 /* CWorld.h */,
+			);
+			name = Include;
+			path = include;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -118,6 +138,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C71BA1A116D9930100550316 /* main.cpp in Sources */,
+				C71BA1AB16D9932900550316 /* CCell.cpp in Sources */,
+				C71BA1AE16D9A2C800550316 /* CWorld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
