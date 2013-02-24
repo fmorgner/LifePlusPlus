@@ -54,6 +54,11 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][j+1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][m_vvWorld[j].size() - 1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][m_vvWorld[j].size() - 1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][m_vvWorld[j].size() - 1]);
           }
         else if(j < (m_vvWorld[i].size() - 1))
           {
@@ -62,12 +67,20 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j-1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j+1]);
           }
         else if(j == (m_vvWorld[i].size() - 1))
           {
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][j-1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j-0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[m_vvWorld.size() - 1][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][0]);
           }
         }
       else if(i < (m_vvWorld.size() - 1))
@@ -79,6 +92,9 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][j+1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][m_vvWorld[j].size()-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][m_vvWorld[j].size()-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][m_vvWorld[j].size()-1]);
           }
         else if(j < (m_vvWorld[i].size() - 1))
           {
@@ -98,6 +114,9 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][j-1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j-0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+1][0]);
           }
         }
       else if(i == (m_vvWorld.size() - 1))
@@ -107,6 +126,11 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-0][j+1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j+0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][m_vvWorld[j].size() - 1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][m_vvWorld[j].size() - 1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][m_vvWorld[j].size() - 1]);
           }
         else if(j < (m_vvWorld[i].size() - 1))
           {
@@ -115,12 +139,20 @@ void World::Initialize()
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j-1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j+0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j+1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j+1]);
           }
         else if(j == (m_vvWorld[i].size() - 1))
           {
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-0][j-1]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j-0]);
           m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j-1]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][j+0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[0][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i+0][0]);
+          m_vvWorld[i][j]->AddNeighbour(m_vvWorld[i-1][0]);
           }
         }
       }
