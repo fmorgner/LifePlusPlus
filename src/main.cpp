@@ -52,6 +52,7 @@ void ClearScreen()
 
 int main(int argc, const char * argv[])
   {
+  
   World oWorld(WORLD_SIZE);
 
   for(int i = 0; i < WORLD_SIZE; i++)

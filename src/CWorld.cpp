@@ -33,11 +33,11 @@
 
 void World::Initialize()
   {
-  for(int i = 0; i < m_rrWorld.Size(); i++)
+  for(int i = 0; i < m_nHeight; i++)
     {
-    m_rrWorld.Add(cpring(m_nWidth));
+    m_rrWorld.Add(cpring());
     
-    for(int j = 0; j < m_rrWorld[i].Size(); j++)
+    for(int j = 0; j < m_nWidth; j++)
       {
       m_rrWorld[i].Add(new Cell);
       }

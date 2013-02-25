@@ -49,9 +49,9 @@ class World
     void Initialize();
     
   public:
-    World() : m_nWidth(12), m_nHeight(12), m_rrWorld(12)      { Initialize(); }
-    World(uint16_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_rrWorld(nSize)  { Initialize(); }
-    World(uint16_t nWidth, uint16_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_rrWorld(nHeight) { Initialize(); }
+    World() : m_nWidth(12), m_nHeight(12)      { Initialize(); }
+    World(uint16_t nSize) : m_nWidth(nSize), m_nHeight(nSize)  { Initialize(); }
+    World(uint16_t nWidth, uint16_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
   
   public:
     void Animate(uint8_t nX, uint8_t nY) { m_rrWorld[nY][nX]->Animate(); }

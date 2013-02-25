@@ -46,7 +46,7 @@ class Cell
     cpring m_rpoNeighbours;
 
   public:
-    Cell() : m_bIsAlive(false), m_rpoNeighbours(8) {}
+    Cell() : m_bIsAlive(false) {}
 
     void PrepareForNextGeneration();
     void Update() { m_bIsAlive = m_bWillBeAlive; }
