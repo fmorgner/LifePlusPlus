@@ -32,9 +32,7 @@
 #include <iostream>
 #include "CCell.h"
 #include "CWorld.h"
-#include <vector>
-#include <string>
-
+#include "CRing.h"
 #include <unistd.h>
 #include <term.h>
 

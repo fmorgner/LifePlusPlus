@@ -33,28 +33,28 @@
 #define __Life____CWorld__
 
 #include <stdint.h>
-#include <vector>
+#include "CRing.h"
 #include "CCell.h"
 
-typedef std::vector<cpvec> pvvec;
+typedef Ring<cpring> prring;
 
 class World
   {
   protected:
     uint16_t m_nHeight;
     uint16_t m_nWidth;
-    pvvec m_vvWorld;
+    prring m_rrWorld;
   
   protected:
     void Initialize();
     
   public:
-    World()                                  : m_nWidth(12)    , m_nHeight(12)      { Initialize(); }
-    World(uint16_t nSize)                    : m_nWidth(nSize) , m_nHeight(nSize)   { Initialize(); }
-    World(uint16_t nWidth, uint16_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
+    World() : m_nWidth(12), m_nHeight(12), m_rrWorld(12)      { Initialize(); }
+    World(uint16_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_rrWorld(nSize)  { Initialize(); }
+    World(uint16_t nWidth, uint16_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_rrWorld(nHeight) { Initialize(); }
   
   public:
-    void Animate(uint8_t nX, uint8_t nY) { m_vvWorld[nY][nX]->Animate(); }
+    void Animate(uint8_t nX, uint8_t nY) { m_rrWorld[nY][nX]->Animate(); }
     void Update();
     void Print();
   };

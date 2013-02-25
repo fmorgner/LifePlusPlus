@@ -32,26 +32,26 @@
 #ifndef __Life____CCell__
 #define __Life____CCell__
 
-#include <vector>
+#include "CRing.h"
 
 class Cell;
 
-typedef std::vector<Cell*> cpvec;
+typedef Ring<Cell*> cpring;
 
 class Cell
   {
   protected:
     bool  m_bIsAlive;
     bool  m_bWillBeAlive;
-    cpvec m_vpoNeighbours;
+    cpring m_rpoNeighbours;
 
   public:
-    Cell() : m_bIsAlive(false) { m_vpoNeighbours = cpvec();}
+    Cell() : m_bIsAlive(false), m_rpoNeighbours(8) {}
 
     void PrepareForNextGeneration();
     void Update() { m_bIsAlive = m_bWillBeAlive; }
     bool IsAlive() { return m_bIsAlive; }
-    void AddNeighbour(Cell* poNeighbour) { m_vpoNeighbours.push_back(poNeighbour); }
+    void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.Add(poNeighbour); }
     void Animate() { m_bIsAlive = true; }
   };
 

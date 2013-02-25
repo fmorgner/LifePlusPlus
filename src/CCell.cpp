@@ -36,9 +36,9 @@ void Cell::PrepareForNextGeneration()
   {
   short nAliveCells = 0;
   
-  for(cpvec::iterator it = m_vpoNeighbours.begin(); it != m_vpoNeighbours.end(); ++it)
+  for(int i = 0; i < m_rpoNeighbours.Size(); i++)
     {
-    if((*it)->IsAlive())
+    if(m_rpoNeighbours[i]->IsAlive())
       {
       nAliveCells++;
       }
