@@ -32,17 +32,19 @@
 #ifndef __Life____CWorld__
 #define __Life____CWorld__
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdlib>
 #include "CRing.h"
 #include "CCell.h"
 
 typedef Ring<cpring> prring;
+typedef prring::size_t location_t;
 
 class World
-  {
+  {  
   protected:
-    uint16_t m_nHeight;
-    uint16_t m_nWidth;
+    prring::size_t m_nHeight;
+    prring::size_t m_nWidth;
     prring m_rrWorld;
   
   protected:
@@ -50,13 +52,14 @@ class World
     
   public:
     World() : m_nWidth(12), m_nHeight(12)      { Initialize(); }
-    World(uint16_t nSize) : m_nWidth(nSize), m_nHeight(nSize)  { Initialize(); }
-    World(uint16_t nWidth, uint16_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
+    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize)  { Initialize(); }
+    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
   
   public:
-    void Animate(uint8_t nX, uint8_t nY) { m_rrWorld[nY][nX]->Animate(); }
+    void Animate(location_t nX, location_t nY) { m_rrWorld[nY][nX]->Animate(); }
     void Update();
     void Print();
+    void Seed(unsigned int nSeed = 0);
   };
 
 #endif /* defined(__Life____CWorld__) */

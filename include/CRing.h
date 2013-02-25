@@ -46,8 +46,7 @@ class Ring
   public:
     Ring() { m_vElements = std::vector<T>(); }
     Ring(typename std::vector<T>::size_type nSize) { m_vElements = std::vector<T>(nSize); }
-  
-  
+
   public:
     void Resize(typename std::vector<T>::size_type nSize) { m_vElements.resize(nSize); }
     typename std::vector<T>::size_type  Size() const { return m_vElements.size(); }
@@ -57,6 +56,9 @@ class Ring
   public:
     T const& operator[](long long i) const { return m_vElements[RingIndex(i)]; }
     T&       operator[](long long i)       { return m_vElements[RingIndex(i)]; }
+  
+  public:
+    typedef typename std::vector<T>::size_type size_t;
   };
 
 #endif /* defined(__Life____CRing__) */

@@ -54,18 +54,7 @@ int main(int argc, const char * argv[])
   {
   
   World oWorld(WORLD_SIZE);
-
-  for(int i = 0; i < WORLD_SIZE; i++)
-    {
-    for(int j = 0; j < WORLD_SIZE; j++)
-      {
-      if(rand()%2)
-        {
-        oWorld.Animate(j, i);
-        }
-      }
-    }
-    
+  oWorld.Seed();
   oWorld.Print();
   
   while(true)

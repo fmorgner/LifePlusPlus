@@ -96,3 +96,27 @@ void World::Print()
     std::cout << std::endl;
     }
   }
+
+void World::Seed(unsigned int nSeed)
+  {
+  if(!nSeed)
+    {
+    srandomdev();
+    }
+  else
+    {
+    srandom(nSeed);
+    }
+
+  for(prring::size_t i = 0; i < m_nWidth; i++)
+    {
+    for(prring::size_t j = 0; j < m_nHeight; j++)
+      {
+      if(!!random()%2)
+        {
+        Animate(j, i);
+        }
+      }
+    }
+  
+  }
