@@ -32,6 +32,7 @@
 #define __Life____CWidget__
 
 #include <ncurses.h>
+#include <cstddef>
 
 struct point_s
   {
@@ -58,6 +59,7 @@ class Widget
     Widget(int nWidth, int nHeight)                             : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_s stOrigin; stOrigin.nX = 0; stOrigin.nY = 0; m_stOrigin = stOrigin; Initialize(); }
     Widget(point_s stOrigin, int nWidth, int nHeight)           : m_nWidth(nWidth), m_nHeight(nHeight), m_stOrigin(stOrigin) { Initialize(); }
     Widget(int nOriginX, int nOriginY, int nWidth, int nHeight) : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_s stOrigin; stOrigin.nX = nOriginX; stOrigin.nY = nOriginY; m_stOrigin = stOrigin; Initialize(); }
+    ~Widget() { wborder(m_pstWindow, ' ', ' ', ' ',' ',' ',' ',' ',' '); wrefresh(m_pstWindow); delwin(m_pstWindow); m_pstWindow = nullptr; }
   
   public:
     void Draw();
