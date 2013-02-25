@@ -38,8 +38,6 @@ template <typename T>
 class Ring
   {
   protected:
-    int m_nSize;
-    int m_nAdditionIndex;
     std::vector<T> m_vElements;
   
   protected:
