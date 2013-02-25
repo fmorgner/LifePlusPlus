@@ -41,19 +41,22 @@ class Ring
     std::vector<T> m_vElements;
   
   protected:
-    int RingIndex(int nIndex) { return (nIndex % m_nSize >= 0) ? (nIndex % m_nSize) : ((nIndex % m_nSize) + m_nSize); }
+    typename std::vector<T>::size_type RingIndex(long long nIndex) { return (nIndex % ((long long) this->Size()) >= 0) ? (nIndex % ((long long) this->Size())) : ((nIndex % ((long long) this->Size())) + ((long long) this->Size())); }
   
   public:
-    Ring() : m_nSize(0), m_nAdditionIndex(0) {}
-    Ring(int nSize) : m_nSize(nSize), m_nAdditionIndex(0) { m_vElements = std::vector<T>(m_nSize); }
+    Ring() { m_vElements = std::vector<T>(); }
+    Ring(typename std::vector<T>::size_type nSize) { m_vElements = std::vector<T>(nSize); }
   
   
   public:
-    void Resize(int nSize) { m_nSize = nSize; m_vElements.resize(m_nSize); }
-    T const& operator[](int i) const { return m_vElements[RingIndex(i)]; }
-    T&       operator[](int i)  { return m_vElements[RingIndex(i)]; }
-    int Size() const { return m_nSize; }
-    void Add(const T& crValue) { m_vElements[RingIndex(m_nAdditionIndex++)] = crValue; }
+    void Resize(typename std::vector<T>::size_type nSize) { m_vElements.resize(nSize); }
+    typename std::vector<T>::size_type  Size() const { return m_vElements.size(); }
+    void Add(const T& crValue) { m_vElements.push_back(crValue); }
+    void Set(typename std::vector<T>::size_type nIndex, const T &crValue) { m_vElements[RingIndex(nIndex)] = crValue;}
+
+  public:
+    T const& operator[](long long i) const { return m_vElements[RingIndex(i)]; }
+    T&       operator[](long long i)       { return m_vElements[RingIndex(i)]; }
   };
 
 #endif /* defined(__Life____CRing__) */
