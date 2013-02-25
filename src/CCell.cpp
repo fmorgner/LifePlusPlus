@@ -43,21 +43,15 @@ void Cell::PrepareForNextGeneration()
       nAliveCells++;
       }
     }
-    
-  if(nAliveCells < 2 && m_bIsAlive)
-    {
-    m_bWillBeAlive = false;
-    }
-  else if((nAliveCells == 2 || nAliveCells == 3) && m_bIsAlive)
+  
+  m_bWillBeAlive = false;
+  
+  if((nAliveCells == 2 || nAliveCells == 3) && m_bIsAlive)
     {
     m_bWillBeAlive = true;
     }
   else if(nAliveCells == 3 && !m_bIsAlive)
     {
     m_bWillBeAlive = true;
-    }
-  else
-    {
-    m_bWillBeAlive = false;
     }
   }
