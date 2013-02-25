@@ -112,7 +112,7 @@ void World::Seed(unsigned int nSeed)
     {
     for(prring::size_t j = 0; j < m_nHeight; j++)
       {
-      if(!!random()%2)
+      if(!!(random()%2))
         {
         Animate(j, i);
         }
