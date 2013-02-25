@@ -33,8 +33,6 @@
 
 void World::Initialize()
   {
-  m_rrWorld = prring(m_nHeight);
-  
   for(int i = 0; i < m_rrWorld.Size(); i++)
     {
     m_rrWorld.Add(cpring(m_nWidth));
