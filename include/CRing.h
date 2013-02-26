@@ -35,15 +35,20 @@
 
 template <typename T> class Ring : public std::vector<T>
   {
+  public:
+    typedef long long sizecast_t;
+    typedef typename std::vector<T>::size_type size_t;
+
   protected:
-    typename std::vector<T>::size_type RingIndex(long long nIndex) { return (nIndex % ((long long) this->size()) >= 0) ? (nIndex % ((long long) this->size())) : ((nIndex % ((long long) this->size())) + ((long long) this->size())); }
+    typename std::vector<T>::size_type RingIndex(sizecast_t nIndex) { return (nIndex % (sizecast_t) this->size() >= 0) ? (nIndex % (sizecast_t) this->size()) : ((nIndex % (sizecast_t) this->size()) + (sizecast_t) this->size()); }
   
   public:
     T const& operator[](long long i) const { return this->at(RingIndex(i)); }
     T&       operator[](long long i)       { return this->at(RingIndex(i)); }
   
   public:
-    typedef typename std::vector<T>::size_type size_t;
+    void Add(const typename std::vector<T>::value_type& val) { this->push_back(val); }
+  
   };
 
 #endif /* defined(__Life____CRing__) */
