@@ -33,36 +33,45 @@
 
 #include <ncurses.h>
 #include <cstddef>
+#include <vector>
+#include <algorithm>
 
-struct point_s
+typedef struct point_st
   {
   int nX;
   int nY;
-  };
+  } point_t;
 
-class Widget
+class View
   {
   protected:
     int     m_nWidth;
     int     m_nHeight;
-    point_s m_stOrigin;
+    point_t m_stOrigin;
     
     bool    m_bIsVisible;
     
     WINDOW* m_pstWindow;
+    std::vector<View*> m_vpstSubviews;
 
   protected:
-    void Initialize();
+    void Initialize() { m_pstWindow = newwin(m_nHeight, m_nWidth, m_stOrigin.nY, m_stOrigin.nX); box(m_pstWindow, 0 , 0); }
   
   public:
-    Widget()                                                    : m_nWidth(0), m_nHeight(0)                                  { point_s stOrigin; stOrigin.nX = 0; stOrigin.nY = 0; m_stOrigin = stOrigin; Initialize(); }
-    Widget(int nWidth, int nHeight)                             : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_s stOrigin; stOrigin.nX = 0; stOrigin.nY = 0; m_stOrigin = stOrigin; Initialize(); }
-    Widget(point_s stOrigin, int nWidth, int nHeight)           : m_nWidth(nWidth), m_nHeight(nHeight), m_stOrigin(stOrigin) { Initialize(); }
-    Widget(int nOriginX, int nOriginY, int nWidth, int nHeight) : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_s stOrigin; stOrigin.nX = nOriginX; stOrigin.nY = nOriginY; m_stOrigin = stOrigin; Initialize(); }
-    ~Widget() { wborder(m_pstWindow, ' ', ' ', ' ',' ',' ',' ',' ',' '); wrefresh(m_pstWindow); delwin(m_pstWindow); m_pstWindow = nullptr; }
+    View()                                                    : m_nWidth(0), m_nHeight(0)                                  { point_t stOrigin; stOrigin.nX = 0; stOrigin.nY = 0; m_stOrigin = stOrigin; Initialize(); }
+    View(int nWidth, int nHeight)                             : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_t stOrigin; stOrigin.nX = 0; stOrigin.nY = 0; m_stOrigin = stOrigin; Initialize(); }
+    View(point_t stOrigin, int nWidth, int nHeight)           : m_nWidth(nWidth), m_nHeight(nHeight), m_stOrigin(stOrigin) { Initialize(); }
+    View(int nOriginX, int nOriginY, int nWidth, int nHeight) : m_nWidth(nWidth), m_nHeight(nHeight)                       { point_t stOrigin; stOrigin.nX = nOriginX; stOrigin.nY = nOriginY; m_stOrigin = stOrigin; Initialize(); }
+    ~View() { wborder(m_pstWindow, ' ', ' ', ' ',' ',' ',' ',' ',' '); wrefresh(m_pstWindow); delwin(m_pstWindow); m_pstWindow = nullptr; }
   
   public:
     void Draw();
+    void Show();
+    void AddSubview(View* const poView) { m_vpstSubviews.push_back(poView); }
+
+  public:
+    point_t Origin() { return m_stOrigin; }
+    bool HasSubview(View* const poView) { return std::find(m_vpstSubviews.begin(), m_vpstSubviews.end(), poView) != m_vpstSubviews.end(); }
   };
 
 #endif /* defined(__Life____CWidget__) */

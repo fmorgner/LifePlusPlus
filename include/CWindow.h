@@ -33,7 +33,7 @@
 
 #include "CWidget.h"
 
-class Window : public Widget
+class Window : public View
   {
   };
 

@@ -28,9 +28,5 @@
  *
  */
 
-#include "CWidget.h"
+#include "CView.h"
 
-void Widget::Initialize()
-  {
-  m_pstWindow = newwin(m_nHeight, m_nWidth, m_stOrigin.nY, m_stOrigin.nX);
-  }

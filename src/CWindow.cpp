@@ -28,4 +28,4 @@
  *
  */
 
-#include "CWindow.h"
+#include "CView.h"
