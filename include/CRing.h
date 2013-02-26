@@ -35,27 +35,14 @@
 
 template <typename T>
 
-class Ring
+class Ring : public std::vector<T>
   {
   protected:
-    std::vector<T> m_vElements;
-  
-  protected:
-    typename std::vector<T>::size_type RingIndex(long long nIndex) { return (nIndex % ((long long) this->Size()) >= 0) ? (nIndex % ((long long) this->Size())) : ((nIndex % ((long long) this->Size())) + ((long long) this->Size())); }
+    typename std::vector<T>::size_type RingIndex(long long nIndex) { return (nIndex % ((long long) this->size()) >= 0) ? (nIndex % ((long long) this->size())) : ((nIndex % ((long long) this->size())) + ((long long) this->size())); }
   
   public:
-    Ring() { m_vElements = std::vector<T>(); }
-    Ring(typename std::vector<T>::size_type nSize) { m_vElements = std::vector<T>(nSize); }
-
-  public:
-    void Resize(typename std::vector<T>::size_type nSize) { m_vElements.resize(nSize); }
-    typename std::vector<T>::size_type  Size() const { return m_vElements.size(); }
-    void Add(const T& crValue) { m_vElements.push_back(crValue); }
-    void Set(typename std::vector<T>::size_type nIndex, const T &crValue) { m_vElements[RingIndex(nIndex)] = crValue;}
-
-  public:
-    T const& operator[](long long i) const { return m_vElements[RingIndex(i)]; }
-    T&       operator[](long long i)       { return m_vElements[RingIndex(i)]; }
+    T const& operator[](long long i) const { return this->at(RingIndex(i)); }
+    T&       operator[](long long i)       { return this->at(RingIndex(i)); }
   
   public:
     typedef typename std::vector<T>::size_type size_t;

@@ -35,17 +35,17 @@ void World::Initialize()
   {
   for(int i = 0; i < m_nHeight; i++)
     {
-    m_rrWorld.Add(cpring());
+    m_rrWorld.push_back(cpring());
     
     for(int j = 0; j < m_nWidth; j++)
       {
-      m_rrWorld[i].Add(new Cell);
+      m_rrWorld[i].push_back(new Cell);
       }
     }
 
-  for(int y = 0; y < m_rrWorld.Size(); y++)
+  for(int y = 0; y < m_rrWorld.size(); y++)
     {
-    for (int x = 0; x < m_rrWorld[y].Size(); x++)
+    for (int x = 0; x < m_rrWorld[y].size(); x++)
       {
       m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y-1][x-1]);
       m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y-1][x]);
@@ -61,17 +61,17 @@ void World::Initialize()
 
 void World::Update()
   {
-  for(int i = 0; i < m_rrWorld.Size(); i++)
+  for(int i = 0; i < m_rrWorld.size(); i++)
     {
-    for(int j = 0; j < m_rrWorld[i].Size(); j++)
+    for(int j = 0; j < m_rrWorld[i].size(); j++)
       {
       m_rrWorld[i][j]->PrepareForNextGeneration();
       }
     }
 
-  for(int i = 0; i < m_rrWorld.Size(); i++)
+  for(int i = 0; i < m_rrWorld.size(); i++)
     {
-    for(int j = 0; j < m_rrWorld[i].Size(); j++)
+    for(int j = 0; j < m_rrWorld[i].size(); j++)
       {
       m_rrWorld[i][j]->Update();
       }
@@ -80,9 +80,9 @@ void World::Update()
 
 void World::Print()
   {
-  for(int i = 0; i < m_rrWorld.Size(); i++)
+  for(int i = 0; i < m_rrWorld.size(); i++)
     {
-    for(int j = 0; j < m_rrWorld[i].Size(); j++)
+    for(int j = 0; j < m_rrWorld[i].size(); j++)
       {
       if(m_rrWorld[i][j]->IsAlive())
         {

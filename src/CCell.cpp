@@ -36,7 +36,7 @@ void Cell::PrepareForNextGeneration()
   {
   short nAliveCells = 0;
   
-  for(int i = 0; i < m_rpoNeighbours.Size(); i++)
+  for(int i = 0; i < m_rpoNeighbours.size(); i++)
     {
     if(m_rpoNeighbours[i]->IsAlive())
       {

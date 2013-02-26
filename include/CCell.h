@@ -51,7 +51,7 @@ class Cell
     void PrepareForNextGeneration();
     void Update() { m_bIsAlive = m_bWillBeAlive; }
     bool IsAlive() { return m_bIsAlive; }
-    void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.Add(poNeighbour); }
+    void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.push_back(poNeighbour); }
     void Animate() { m_bIsAlive = true; }
   };
 
