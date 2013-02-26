@@ -33,9 +33,7 @@
 
 #include <vector>
 
-template <typename T>
-
-class Ring : public std::vector<T>
+template <typename T> class Ring : public std::vector<T>
   {
   protected:
     typename std::vector<T>::size_type RingIndex(long long nIndex) { return (nIndex % ((long long) this->size()) >= 0) ? (nIndex % ((long long) this->size())) : ((nIndex % ((long long) this->size())) + ((long long) this->size())); }
