@@ -47,7 +47,8 @@ template <typename T> class Ring : public std::vector<T>
     T&       operator[](long long i)       { return this->at(RingIndex(i)); }
   
   public:
-    void Add(const typename std::vector<T>::value_type& val) { this->push_back(val); }
+    void Add(const typename std::vector<T>::value_type& val)  { this->push_back(val); }
+    void Add(const typename std::vector<T>::value_type&& val) { this->push_back(val); }
   
   };
 
