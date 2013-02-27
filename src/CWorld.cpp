@@ -99,7 +99,7 @@ void World::Print()
 
 std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks)
   {
-  std::string sReturnString = "";
+  std::string sReturnString;
 
   for(int i = 0; i < m_nHeight; i++)
     {
