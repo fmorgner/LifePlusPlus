@@ -29,41 +29,29 @@
  */
 
 
-#include <iostream>
-#include "CCell.h"
-#include "CWorld.h"
-#include "CRing.h"
 #include <unistd.h>
-#include <term.h>
-
-void ClearScreen()
-  {
-  if (!cur_term)
-    {
-    int result;
-    setupterm( NULL, STDOUT_FILENO, &result );
-    if (result <= 0) return;
-    }
-
-  putp( tigetstr( "clear" ) );
-  }
-
-#define WORLD_SIZE 25
+#include <iostream>
+#include <ncurses.h>
+#include "CWorld.h"
 
 int main(int argc, const char * argv[])
   {
-  
-  World oWorld(WORLD_SIZE);
+  initscr();
+  cbreak();
+
+  World oWorld(getmaxx(stdscr), getmaxy(stdscr));
   oWorld.Seed();
-  oWorld.Print();
-  
+
   while(true)
     {
-    ClearScreen();
+    move(0,0);
+    printw(oWorld.StringRepresentation().c_str());
+    refresh();
     oWorld.Update();
-    oWorld.Print();
-    usleep(200000);
+    usleep(33333);
     }
+    
+  endwin();
   
   return 0;
   }

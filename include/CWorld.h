@@ -34,6 +34,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <string>
 #include "CRing.h"
 #include "CCell.h"
 
@@ -60,6 +61,7 @@ class World
     void Update();
     void Print();
     void Seed(unsigned int nSeed = 0);
+    std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false);
   };
 
 #endif /* defined(__Life____CWorld__) */

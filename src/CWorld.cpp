@@ -97,6 +97,32 @@ void World::Print()
     }
   }
 
+std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks)
+  {
+  std::string sReturnString = "";
+
+  for(int i = 0; i < m_nHeight; i++)
+    {
+    for(int j = 0; j < m_nWidth; j++)
+      {
+      if(m_rrWorld[i][j]->IsAlive())
+        {
+        sReturnString += sCellCharacter;
+        }
+      else
+        {
+        sReturnString += " ";
+        }
+      }
+      if(bIncludingLinebreaks)
+        {
+        sReturnString += '\n';
+        }
+    }
+  
+  return sReturnString;
+  }
+
 void World::Seed(unsigned int nSeed)
   {
   if(!nSeed)
@@ -114,9 +140,8 @@ void World::Seed(unsigned int nSeed)
       {
       if(!!(random()%2))
         {
-        Animate(j, i);
+        Animate(i, j);
         }
       }
     }
-  
   }
