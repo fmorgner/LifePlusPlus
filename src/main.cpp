@@ -38,7 +38,10 @@
 #include <mutex>
 
 bool bShouldRun = true;
+bool bShouldReseed = false;
+
 std::mutex goShouldRunMutex;
+std::mutex goShouldReseedMutex;
 
 void printStuckMessage(uint64_t nGenerations)
   {
@@ -66,14 +69,27 @@ void printStuckMessage(uint64_t nGenerations)
 
 void handleInput()
   {
-  while(true)
+  bool bEndInput = false;
+  
+  while(!bEndInput)
     {
-    if(getch() == 'q')
+    int c = getch();
+    
+    switch(c)
       {
-      goShouldRunMutex.lock();
-      bShouldRun = false;
-      goShouldRunMutex.unlock();
-      break;
+      case 'q':
+        goShouldRunMutex.lock();
+        bShouldRun = false;
+        goShouldRunMutex.unlock();
+        bEndInput = true;
+        break;
+      case 'r':
+        goShouldReseedMutex.lock();
+        bShouldReseed = true;
+        goShouldReseedMutex.unlock();
+        break;
+      default:
+        break;
       }
     }
   }
@@ -111,6 +127,17 @@ int main(int argc, const char * argv[])
       usleep(3000000);
       nGenerations = 0;
       oWorld.Seed();
+      }
+    else
+      {
+      goShouldReseedMutex.lock();
+      if(bShouldReseed)
+        {
+        bShouldReseed = false;
+        nGenerations = 0;
+        oWorld.Seed();
+        }
+      goShouldReseedMutex.unlock();
       }
     
     nGenerations++;
