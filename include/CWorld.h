@@ -49,16 +49,16 @@ class World
     prring::size_t m_nHeight;
     prring::size_t m_nWidth;
     prring m_rrWorld;
-    strfiring m_frLastTwoGenerations;
+    strfiring m_rGenerationBuffer;
     bool m_bIsStuck = false;
   
   protected:
     void Initialize();
     
   public:
-    World() : m_nWidth(12), m_nHeight(12), m_frLastTwoGenerations(2) { Initialize(); }
-    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_frLastTwoGenerations(2) { Initialize(); }
-    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_frLastTwoGenerations(2) { Initialize(); }
+    World() : m_nWidth(12), m_nHeight(12), m_rGenerationBuffer(3) { Initialize(); }
+    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_rGenerationBuffer(3) { Initialize(); }
+    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_rGenerationBuffer(3) { Initialize(); }
   
   public:
     void Animate(location_t nX, location_t nY) { m_rrWorld[nY][nX]->Animate(); }

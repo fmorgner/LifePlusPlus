@@ -62,7 +62,7 @@ void World::Initialize()
 
 void World::Update()
   {
-  m_frLastTwoGenerations.Add(this->StringRepresentation());
+  m_rGenerationBuffer.Add(this->StringRepresentation());
   
   for(int i = 0; i < m_rrWorld.size(); i++)
     {
@@ -80,7 +80,7 @@ void World::Update()
       }
     }
   
-  if(std::find(m_frLastTwoGenerations.begin(), m_frLastTwoGenerations.end(), this->StringRepresentation()) != m_frLastTwoGenerations.end())
+  if(std::find(m_rGenerationBuffer.begin(), m_rGenerationBuffer.end(), this->StringRepresentation()) != m_rGenerationBuffer.end())
     {
     m_bIsStuck = true;
     }
