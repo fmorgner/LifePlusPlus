@@ -30,6 +30,7 @@
 
 #include "CWorld.h"
 #include <iostream>
+#include <algorithm>
 
 void World::Initialize()
   {
@@ -61,6 +62,8 @@ void World::Initialize()
 
 void World::Update()
   {
+  m_frLastTwoGenerations.Add(this->StringRepresentation());
+  
   for(int i = 0; i < m_rrWorld.size(); i++)
     {
     for(int j = 0; j < m_rrWorld[i].size(); j++)
@@ -75,6 +78,11 @@ void World::Update()
       {
       m_rrWorld[i][j]->Update();
       }
+    }
+  
+  if(std::find(m_frLastTwoGenerations.begin(), m_frLastTwoGenerations.end(), this->StringRepresentation()) != m_frLastTwoGenerations.end())
+    {
+    m_bIsStuck = true;
     }
   }
 
@@ -125,6 +133,11 @@ std::string World::StringRepresentation(std::string sCellCharacter, bool bInclud
 
 void World::Seed(unsigned int nSeed)
   {
+  if(m_bIsStuck)
+    {
+    m_bIsStuck = false;
+    }
+  
   if(!nSeed)
     {
     srandomdev();

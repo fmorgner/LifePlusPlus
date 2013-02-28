@@ -36,10 +36,12 @@
 #include <cstdlib>
 #include <string>
 #include "CRing.h"
+#include "CFiniteRing.h"
 #include "CCell.h"
 
 typedef Ring<cpring> prring;
-typedef prring::size_t location_t;
+typedef prring::size_type location_t;
+typedef FiniteRing<std::string> strfiring;
 
 class World
   {  
@@ -47,14 +49,16 @@ class World
     prring::size_t m_nHeight;
     prring::size_t m_nWidth;
     prring m_rrWorld;
+    strfiring m_frLastTwoGenerations;
+    bool m_bIsStuck = false;
   
   protected:
     void Initialize();
     
   public:
-    World() : m_nWidth(12), m_nHeight(12)      { Initialize(); }
-    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize)  { Initialize(); }
-    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
+    World() : m_nWidth(12), m_nHeight(12), m_frLastTwoGenerations(2) { Initialize(); }
+    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_frLastTwoGenerations(2) { Initialize(); }
+    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_frLastTwoGenerations(2) { Initialize(); }
   
   public:
     void Animate(location_t nX, location_t nY) { m_rrWorld[nY][nX]->Animate(); }
@@ -62,6 +66,7 @@ class World
     void Print();
     void Seed(unsigned int nSeed = 0);
     std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false);
+    bool IsStuck() { return m_bIsStuck; }
   };
 
 #endif /* defined(__Life____CWorld__) */

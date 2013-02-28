@@ -48,6 +48,11 @@ int main(int argc, const char * argv[])
     printw(oWorld.StringRepresentation().c_str());
     refresh();
     oWorld.Update();
+    if(oWorld.IsStuck())
+      {
+      usleep(10000000);
+      oWorld.Seed();
+      }
     usleep(33333);
     }
     
