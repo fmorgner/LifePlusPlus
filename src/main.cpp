@@ -30,9 +30,35 @@
 
 
 #include <unistd.h>
-#include <iostream>
+#include <string>
+#include <sstream>
 #include <ncurses.h>
 #include "CWorld.h"
+#include <inttypes.h>
+
+void printStuckMessage(uint64_t nGenerations)
+  {
+  clear();
+  
+  int nPosX, nPosY;
+
+  std::string sMessageStuck = "The simulation got stuck. Reseeding...";
+  std::ostringstream sMessageGenerations;
+  
+  sMessageGenerations << "Got stuck after " << nGenerations << " generations.";
+  
+  nPosX = (getmaxx(stdscr) - (int) sMessageStuck.length()) / 2;
+  nPosY = getmaxy(stdscr) / 2;
+  
+  mvprintw(nPosY, nPosX, sMessageStuck.c_str());
+  
+  nPosX = (getmaxx(stdscr) - (int) sMessageGenerations.str().length()) / 2;
+  nPosY = getmaxy(stdscr) / 2 + 1;
+
+  mvprintw(nPosY, nPosX, sMessageGenerations.str().c_str());
+  
+  refresh();
+  }
 
 int main(int argc, const char * argv[])
   {
@@ -42,17 +68,25 @@ int main(int argc, const char * argv[])
   World oWorld(getmaxx(stdscr), getmaxy(stdscr));
   oWorld.Seed();
 
+  uint64_t nGenerations = 0;
+
   while(true)
     {
     move(0,0);
     printw(oWorld.StringRepresentation().c_str());
     refresh();
     oWorld.Update();
+    
     if(oWorld.IsStuck())
       {
-      usleep(10000000);
+      printStuckMessage(nGenerations);
+      usleep(3000000);
+      nGenerations = 0;
       oWorld.Seed();
       }
+    
+    nGenerations++;
+    
     usleep(33333);
     }
     
