@@ -35,6 +35,7 @@
 		C71BA1AC16D9A2C800550316 /* CWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWorld.cpp; sourceTree = "<group>"; };
 		C71BA1AD16D9A2C800550316 /* CWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWorld.h; sourceTree = "<group>"; };
 		C71BA1AF16D9B2F900550316 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
+		C7CD191F16DEDA5000A0ABA0 /* CFiniteRing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFiniteRing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				C71BA1AA16D9932900550316 /* CCell.h */,
+				C7CD191F16DEDA5000A0ABA0 /* CFiniteRing.h */,
 				C70444F616DB0691007DBA4E /* CRing.h */,
 				C71BA1AD16D9A2C800550316 /* CWorld.h */,
 			);
