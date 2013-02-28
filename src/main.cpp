@@ -28,13 +28,17 @@
  *
  */
 
-
 #include <unistd.h>
 #include <string>
 #include <sstream>
 #include <ncurses.h>
 #include "CWorld.h"
 #include <inttypes.h>
+#include <thread>
+#include <mutex>
+
+bool bShouldRun = true;
+std::mutex goShouldRunMutex;
 
 void printStuckMessage(uint64_t nGenerations)
   {
@@ -60,6 +64,28 @@ void printStuckMessage(uint64_t nGenerations)
   refresh();
   }
 
+void handleInput()
+  {
+  while(true)
+    {
+    if(getch() == 'q')
+      {
+      goShouldRunMutex.lock();
+      bShouldRun = false;
+      goShouldRunMutex.unlock();
+      break;
+      }
+    }
+  }
+
+bool shouldRun()
+  {
+  goShouldRunMutex.lock();
+  bool returnValue = bShouldRun;
+  goShouldRunMutex.unlock();
+  return returnValue;
+  }
+
 int main(int argc, const char * argv[])
   {
   initscr();
@@ -70,7 +96,9 @@ int main(int argc, const char * argv[])
 
   uint64_t nGenerations = 0;
 
-  while(true)
+  std::thread oUserInteractionThread(handleInput);
+
+  while(bShouldRun)
     {
     move(0,0);
     printw(oWorld.StringRepresentation().c_str());
@@ -89,6 +117,8 @@ int main(int argc, const char * argv[])
     
     usleep(33333);
     }
+
+  oUserInteractionThread.join();
     
   endwin();
   
