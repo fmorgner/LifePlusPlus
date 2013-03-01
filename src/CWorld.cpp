@@ -34,28 +34,20 @@
 
 void World::Initialize()
   {
-  for(int nRow = 0; nRow < m_nHeight; nRow++)
-    {
-    m_oWorld.push_back(fmo::Ring<Cell*>());
-    
-    for(int nColumn = 0; nColumn < m_nWidth; nColumn++)
-      {
-      m_oWorld[nRow].push_back(new Cell);
-      }
-    }
+  m_oWorld = fmo::Ring< fmo::Ring<Cell> >(m_nHeight, fmo::Ring<Cell>(m_nWidth));
 
   for(int nRow = 0; nRow < m_oWorld.size(); nRow++)
     {
     for (int nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn-1]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn+1]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow][nColumn-1]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow][nColumn+1]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn-1]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn]);
-      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn+1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow-1][nColumn-1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow-1][nColumn+0]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow-1][nColumn+1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow+0][nColumn-1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow+0][nColumn+1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow+1][nColumn-1]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow+1][nColumn+0]);
+      m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow+1][nColumn+1]);
       }
     }
   }
@@ -68,7 +60,7 @@ void World::Update()
     {
     for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_oWorld[nRow][nColumn]->PrepareForNextGeneration();
+      m_oWorld[nRow][nColumn].PrepareForNextGeneration();
       }
     }
 
@@ -76,7 +68,7 @@ void World::Update()
     {
     for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_oWorld[nRow][nColumn]->Update();
+      m_oWorld[nRow][nColumn].Update();
       }
     }
   
@@ -88,28 +80,21 @@ void World::Update()
 
 std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks)
   {
-  std::string sReturnString;
+  std::string oStringRepresentation;
 
-  for(decltype(m_nHeight) nRow = 0; nRow < m_nHeight; nRow++)
+  for(auto& oRow : m_oWorld)
     {
-    for(decltype(m_nWidth) nColumn = 0; nColumn < m_nWidth; nColumn++)
+    for(auto& oCell : oRow)
       {
-      if(m_oWorld[nRow][nColumn]->IsAlive())
-        {
-        sReturnString += sCellCharacter;
-        }
-      else
-        {
-        sReturnString += " ";
-        }
+      oStringRepresentation += (oCell.IsAlive()) ? sCellCharacter : " ";
       }
       if(bIncludingLinebreaks)
         {
-        sReturnString += '\n';
+        oStringRepresentation += '\n';
         }
     }
   
-  return sReturnString;
+  return oStringRepresentation;
   }
 
 void World::Seed(unsigned int nSeed)
@@ -128,13 +113,13 @@ void World::Seed(unsigned int nSeed)
     srandom(nSeed);
     }
 
-  for(decltype(m_nWidth) nX = 0; nX < m_nWidth; nX++)
+  for(auto& oRow : m_oWorld)
     {
-    for(decltype(m_nHeight) nY = 0; nY < m_nHeight; nY++)
+    for(auto& oCell : oRow)
       {
       if(!!(random()%2))
         {
-        Animate(nX, nY);
+        oCell.Animate();
         }
       }
     }

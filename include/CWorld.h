@@ -42,10 +42,10 @@
 class World
   {  
   protected:
-    fmo::Ring<fmo::Ring<Cell*>>::size_type m_nWidth  = 12;
+    fmo::Ring<fmo::Ring<Cell>>::size_type  m_nWidth  = 12;
     decltype(m_nWidth)                     m_nHeight = 12;
     
-    fmo::Ring<fmo::Ring<Cell*>>            m_oWorld;
+    fmo::Ring<fmo::Ring<Cell>>             m_oWorld;
     fmo::FiniteRing<std::string>           m_oGenerationBuffer = fmo::FiniteRing<std::string>(3);
     
     bool m_bIsStuck = false;
@@ -59,7 +59,7 @@ class World
     World(decltype(m_nWidth) nWidth, decltype(m_nHeight) nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
   
   public:
-    void Animate(decltype(m_nWidth) nX, decltype(m_nHeight) nY) { m_oWorld[nY][nX]->Animate(); }
+    void Animate(decltype(m_nWidth) nX, decltype(m_nHeight) nY) { m_oWorld[nY][nX].Animate(); }
     void Seed(unsigned int nSeed = 0);
     void Update();
     

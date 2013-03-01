@@ -38,10 +38,8 @@ namespace fmo
 
   template <typename T> class Ring : public std::vector<T>
     {
-    public:
-      typedef long long sizecast_t;
-
     protected:
+      typedef long long sizecast_t;
       typename std::vector<T>::size_type RingIndex(sizecast_t nIndex) { return (nIndex % (sizecast_t) this->size() >= 0) ? (nIndex % (sizecast_t) this->size()) : ((nIndex % (sizecast_t) this->size()) + (sizecast_t) this->size()); }
     
     public:
@@ -51,7 +49,9 @@ namespace fmo
     public:
       void Add(const typename std::vector<T>::value_type& val)  { this->push_back(val); }
       void Add(const typename std::vector<T>::value_type&& val) { this->push_back(val); }
-    
+      
+      Ring() : std::vector<T>() {}
+      Ring(typename Ring<T>::size_type nSize, const T& rValue = T(), const typename std::allocator<T>& rAllocator = std::allocator<T>()) : std::vector<T>(nSize, rValue, rAllocator) {}
     };
 
   }

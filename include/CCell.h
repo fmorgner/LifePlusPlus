@@ -41,7 +41,7 @@ class Cell
   protected:
     bool  m_bIsAlive;
     bool  m_bWillBeAlive;
-    fmo::Ring<Cell*> m_rpoNeighbours;
+    fmo::Ring<Cell*> m_rpoNeighbours = fmo::Ring<Cell*>();
 
   public:
     Cell() : m_bIsAlive(false) {}
