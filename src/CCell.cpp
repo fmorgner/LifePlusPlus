@@ -35,16 +35,15 @@
 void Cell::PrepareForNextGeneration()
   {
   short nAliveCells = 0;
+  m_bWillBeAlive = false;
   
-  for(int i = 0; i < m_rpoNeighbours.size(); i++)
+  for(auto poCell : m_rpoNeighbours)
     {
-    if(m_rpoNeighbours[i]->IsAlive())
+    if(poCell->IsAlive())
       {
       nAliveCells++;
       }
     }
-  
-  m_bWillBeAlive = false;
   
   if((nAliveCells == 2 || nAliveCells == 3) && m_bIsAlive)
     {

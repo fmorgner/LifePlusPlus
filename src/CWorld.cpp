@@ -56,19 +56,19 @@ void World::Update()
   {
   m_oGenerationBuffer.Add(this->StringRepresentation());
   
-  for(decltype(m_oWorld.size()) nRow = 0; nRow < m_oWorld.size(); nRow++)
+  for(auto& oRow : m_oWorld)
     {
-    for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
+    for(auto& oCell : oRow)
       {
-      m_oWorld[nRow][nColumn].PrepareForNextGeneration();
+      oCell.PrepareForNextGeneration();
       }
     }
 
-  for(decltype(m_oWorld.size()) nRow = 0; nRow < m_oWorld.size(); nRow++)
+  for(auto& oRow : m_oWorld)
     {
-    for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
+    for(auto& oCell : oRow)
       {
-      m_oWorld[nRow][nColumn].Update();
+      oCell.Update();
       }
     }
   

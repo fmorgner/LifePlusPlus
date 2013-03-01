@@ -104,7 +104,6 @@ bool shouldRun()
 
 int main(int argc, const char * argv[])
   {
-  usleep(1000000);
   initscr();
   cbreak();
 
