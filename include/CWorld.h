@@ -39,34 +39,32 @@
 #include "CFiniteRing.h"
 #include "CCell.h"
 
-typedef Ring<cpring> prring;
-typedef prring::size_type location_t;
-typedef FiniteRing<std::string> strfiring;
-
 class World
   {  
   protected:
-    prring::size_t m_nHeight;
-    prring::size_t m_nWidth;
-    prring m_rrWorld;
-    strfiring m_rGenerationBuffer;
+    fmo::Ring<fmo::Ring<Cell*>>::size_type m_nWidth  = 12;
+    decltype(m_nWidth)                     m_nHeight = 12;
+    
+    fmo::Ring<fmo::Ring<Cell*>>            m_oWorld;
+    fmo::FiniteRing<std::string>           m_oGenerationBuffer = fmo::FiniteRing<std::string>(3);
+    
     bool m_bIsStuck = false;
   
   protected:
     void Initialize();
     
   public:
-    World() : m_nWidth(12), m_nHeight(12), m_rGenerationBuffer(3) { Initialize(); }
-    World(size_t nSize) : m_nWidth(nSize), m_nHeight(nSize), m_rGenerationBuffer(3) { Initialize(); }
-    World(size_t nWidth, size_t nHeight) : m_nWidth(nWidth), m_nHeight(nHeight), m_rGenerationBuffer(3) { Initialize(); }
+    World() { Initialize(); }
+    World(decltype(m_nWidth) nSize) : m_nWidth(nSize), m_nHeight(nSize) { Initialize(); }
+    World(decltype(m_nWidth) nWidth, decltype(m_nHeight) nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
   
   public:
-    void Animate(location_t nX, location_t nY) { m_rrWorld[nY][nX]->Animate(); }
-    void Update();
-    void Print();
+    void Animate(decltype(m_nWidth) nX, decltype(m_nHeight) nY) { m_oWorld[nY][nX]->Animate(); }
     void Seed(unsigned int nSeed = 0);
+    void Update();
+    
     std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false);
     bool IsStuck() { return m_bIsStuck; }
   };
 
-#endif /* defined(__Life____CWorld__) */
+#endif

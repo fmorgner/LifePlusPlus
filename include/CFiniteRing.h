@@ -33,22 +33,28 @@
 
 #include <list>
 
-template <typename T> class FiniteRing : public std::list<T>
+namespace fmo
   {
-  protected:
-    void resize(typename FiniteRing<T>::size_type n);
-    void resize(typename FiniteRing<T>::size_type n, typename FiniteRing<T>::value_type val);
-    
-    FiniteRing();
 
-  protected:
-    typename FiniteRing<T>::size_type m_nSizeLimit;
+  template <typename T> class FiniteRing : public std::list<T>
+    {
+    protected:
+      void resize(typename FiniteRing<T>::size_type n);
+      void resize(typename FiniteRing<T>::size_type n, typename FiniteRing<T>::value_type val);
+      
+      FiniteRing();
 
-  public:
-    FiniteRing(typename FiniteRing<T>::size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
-    void Add(const typename FiniteRing<T>::value_type& val) { if(this->size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
-    void Add(const typename FiniteRing<T>::value_type&& val) { if(this->size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+    protected:
+      typename FiniteRing<T>::size_type m_nSizeLimit;
 
-  };
+    public:
+      FiniteRing(typename FiniteRing<T>::size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
+      FiniteRing(std::initializer_list<T> oInitializerList) : std::list<T>(oInitializerList) { m_nSizeLimit = oInitializerList.size(); }
+      void Add(const typename FiniteRing<T>::value_type& val) { if(this->size() == m_nSizeLimit)  { this->pop_back(); } this->push_front(val); }
+      void Add(const typename FiniteRing<T>::value_type&& val) { if(this->size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+
+    };
+
+  }
 
 #endif

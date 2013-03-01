@@ -34,74 +34,55 @@
 
 void World::Initialize()
   {
-  for(int i = 0; i < m_nHeight; i++)
+  for(int nRow = 0; nRow < m_nHeight; nRow++)
     {
-    m_rrWorld.push_back(cpring());
+    m_oWorld.push_back(fmo::Ring<Cell*>());
     
-    for(int j = 0; j < m_nWidth; j++)
+    for(int nColumn = 0; nColumn < m_nWidth; nColumn++)
       {
-      m_rrWorld[i].push_back(new Cell);
+      m_oWorld[nRow].push_back(new Cell);
       }
     }
 
-  for(int y = 0; y < m_rrWorld.size(); y++)
+  for(int nRow = 0; nRow < m_oWorld.size(); nRow++)
     {
-    for (int x = 0; x < m_rrWorld[y].size(); x++)
+    for (int nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y-1][x-1]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y-1][x]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y-1][x+1]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y][x-1]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y][x+1]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y+1][x-1]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y+1][x]);
-      m_rrWorld[y][x]->AddNeighbour(m_rrWorld[y+1][x+1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn-1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow-1][nColumn+1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow][nColumn-1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow][nColumn+1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn-1]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn]);
+      m_oWorld[nRow][nColumn]->AddNeighbour(m_oWorld[nRow+1][nColumn+1]);
       }
     }
   }
 
 void World::Update()
   {
-  m_rGenerationBuffer.Add(this->StringRepresentation());
+  m_oGenerationBuffer.Add(this->StringRepresentation());
   
-  for(int i = 0; i < m_rrWorld.size(); i++)
+  for(decltype(m_oWorld.size()) nRow = 0; nRow < m_oWorld.size(); nRow++)
     {
-    for(int j = 0; j < m_rrWorld[i].size(); j++)
+    for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_rrWorld[i][j]->PrepareForNextGeneration();
+      m_oWorld[nRow][nColumn]->PrepareForNextGeneration();
       }
     }
 
-  for(int i = 0; i < m_rrWorld.size(); i++)
+  for(decltype(m_oWorld.size()) nRow = 0; nRow < m_oWorld.size(); nRow++)
     {
-    for(int j = 0; j < m_rrWorld[i].size(); j++)
+    for(decltype(m_oWorld[nRow].size()) nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
       {
-      m_rrWorld[i][j]->Update();
+      m_oWorld[nRow][nColumn]->Update();
       }
     }
   
-  if(std::find(m_rGenerationBuffer.begin(), m_rGenerationBuffer.end(), this->StringRepresentation()) != m_rGenerationBuffer.end())
+  if(std::find(m_oGenerationBuffer.begin(), m_oGenerationBuffer.end(), this->StringRepresentation()) != m_oGenerationBuffer.end())
     {
     m_bIsStuck = true;
-    }
-  }
-
-void World::Print()
-  {
-  for(int i = 0; i < m_rrWorld.size(); i++)
-    {
-    for(int j = 0; j < m_rrWorld[i].size(); j++)
-      {
-      if(m_rrWorld[i][j]->IsAlive())
-        {
-        std::cout << "O";
-        }
-      else
-        {
-        std::cout << " ";
-        }
-      }
-    std::cout << std::endl;
     }
   }
 
@@ -109,11 +90,11 @@ std::string World::StringRepresentation(std::string sCellCharacter, bool bInclud
   {
   std::string sReturnString;
 
-  for(int i = 0; i < m_nHeight; i++)
+  for(decltype(m_nHeight) nRow = 0; nRow < m_nHeight; nRow++)
     {
-    for(int j = 0; j < m_nWidth; j++)
+    for(decltype(m_nWidth) nColumn = 0; nColumn < m_nWidth; nColumn++)
       {
-      if(m_rrWorld[i][j]->IsAlive())
+      if(m_oWorld[nRow][nColumn]->IsAlive())
         {
         sReturnString += sCellCharacter;
         }
@@ -147,13 +128,13 @@ void World::Seed(unsigned int nSeed)
     srandom(nSeed);
     }
 
-  for(prring::size_t i = 0; i < m_nWidth; i++)
+  for(decltype(m_nWidth) nX = 0; nX < m_nWidth; nX++)
     {
-    for(prring::size_t j = 0; j < m_nHeight; j++)
+    for(decltype(m_nHeight) nY = 0; nY < m_nHeight; nY++)
       {
       if(!!(random()%2))
         {
-        Animate(i, j);
+        Animate(nX, nY);
         }
       }
     }

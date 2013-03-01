@@ -36,14 +36,12 @@
 
 class Cell;
 
-typedef Ring<Cell*> cpring;
-
 class Cell
   {
   protected:
     bool  m_bIsAlive;
     bool  m_bWillBeAlive;
-    cpring m_rpoNeighbours;
+    fmo::Ring<Cell*> m_rpoNeighbours;
 
   public:
     Cell() : m_bIsAlive(false) {}
@@ -56,4 +54,4 @@ class Cell
   };
 
 
-#endif /* defined(__Life____CCell__) */
+#endif
