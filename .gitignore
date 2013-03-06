@@ -9,4 +9,6 @@ build/
 *.xcworkspace
 xcuserdata
 .DS_Store
+reports
+build
 
