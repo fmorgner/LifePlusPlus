@@ -32,6 +32,11 @@
 #include <iostream>
 #include <algorithm>
 
+#ifdef __gnu_linux__
+#include <stdlib.h>
+#include <time.h>
+#endif
+
 void World::Initialize()
   {
   m_oWorld = fmo::Ring< fmo::Ring<Cell> >(m_nHeight, fmo::Ring<Cell>(m_nWidth));
@@ -103,10 +108,14 @@ void World::Seed(unsigned int nSeed)
     {
     m_bIsStuck = false;
     }
-  
+
   if(!nSeed)
     {
+    #if defined(__APPLE__) && defined(__MACH__)
     srandomdev();
+    #else
+    srand(time(NULL));
+    #endif
     }
   else
     {
