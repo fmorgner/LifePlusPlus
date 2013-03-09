@@ -33,7 +33,7 @@
 #include <algorithm>
 
 #ifdef __gnu_linux__
-#include <stdlib.h>
+#include <cstdlib>
 #include <time.h>
 #endif
 

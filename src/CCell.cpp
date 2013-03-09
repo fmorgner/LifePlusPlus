@@ -30,7 +30,7 @@
 
 
 #include "CCell.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 void Cell::PrepareForNextGeneration()
   {
