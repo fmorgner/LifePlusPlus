@@ -34,7 +34,7 @@
 
 #ifdef __gnu_linux__
 #include <cstdlib>
-#include <time.h>
+#include <ctime>
 #endif
 
 void World::Initialize()
