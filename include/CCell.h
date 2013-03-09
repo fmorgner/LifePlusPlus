@@ -40,7 +40,7 @@ class Cell
   {
   protected:
     bool  m_bIsAlive;
-    bool  m_bWillBeAlive;
+    bool  m_bWillBeAlive = false;
     fmo::Ring<Cell*> m_rpoNeighbours = fmo::Ring<Cell*>();
 
   public:

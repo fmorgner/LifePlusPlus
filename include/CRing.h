@@ -43,8 +43,8 @@ namespace fmo
       typename std::vector<T>::size_type RingIndex(sizecast_t nIndex) { return (nIndex % (sizecast_t) this->size() >= 0) ? (nIndex % (sizecast_t) this->size()) : ((nIndex % (sizecast_t) this->size()) + (sizecast_t) this->size()); }
     
     public:
-      T const& operator[](long long i) const { return this->at(RingIndex(i)); }
-      T&       operator[](long long i)       { return this->at(RingIndex(i)); }
+      T const& operator[](sizecast_t i) const { return this->at(RingIndex(i)); }
+      T&       operator[](sizecast_t i)       { return this->at(RingIndex(i)); }
     
     public:
       void Add(const typename std::vector<T>::value_type& val)  { this->push_back(val); }
