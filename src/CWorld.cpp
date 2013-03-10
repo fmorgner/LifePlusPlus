@@ -93,10 +93,10 @@ std::string World::StringRepresentation(std::string sCellCharacter, bool bInclud
       {
       oStringRepresentation += (oCell.IsAlive()) ? sCellCharacter : " ";
       }
-      if(bIncludingLinebreaks)
-        {
-        oStringRepresentation += '\n';
-        }
+    if(bIncludingLinebreaks)
+      {
+      oStringRepresentation += '\n';
+      }
     }
   
   return oStringRepresentation;
