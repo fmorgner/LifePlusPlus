@@ -74,8 +74,7 @@ int main(int argc, const char * argv[])
   World oWorld(getmaxx(stdscr), getmaxy(stdscr)-1);
   oWorld.Seed();
 
-  std::chrono::microseconds oCurrentFrameDelay(60000), oOriginalFrameDelay(oCurrentFrameDelay), oMessageDelay(3000000),  oTimeStep(10000), oNullTime(0);
-  std::chrono::microseconds oWaitTime(0);
+  std::chrono::microseconds oCurrentFrameDelay(60000), oOriginalFrameDelay(oCurrentFrameDelay), oMessageDelay(3000000),  oTimeStep(10000), oNullTime(0), oWaitTime(0);
   std::chrono::steady_clock::time_point oStartTimepoint, oEndTimepoint;
 
   while(true)
