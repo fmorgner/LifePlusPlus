@@ -33,7 +33,7 @@
 #include <ncurses.h>
 #include "CWorld.h"
 #include <inttypes.h>
-#include <thread>
+#include <chrono>
 
 void printStuckMessage(uint64_t nGenerations)
   {
