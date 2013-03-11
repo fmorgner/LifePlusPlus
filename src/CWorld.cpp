@@ -81,6 +81,8 @@ void World::Update()
     {
     m_bIsStuck = true;
     }
+
+  m_nGeneration++;
   }
 
 std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks)
@@ -132,4 +134,6 @@ void World::Seed(unsigned int nSeed)
         }
       }
     }
+
+  m_nGeneration = 0;
   }

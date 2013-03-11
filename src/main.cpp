@@ -28,20 +28,12 @@
  *
  */
 
-#include <unistd.h>
 #include <string>
 #include <sstream>
 #include <ncurses.h>
 #include "CWorld.h"
 #include <inttypes.h>
 #include <thread>
-#include <mutex>
-
-bool bShouldRun = true;
-bool bShouldReseed = false;
-
-std::mutex goShouldRunMutex;
-std::mutex goShouldReseedMutex;
 
 void printStuckMessage(uint64_t nGenerations)
   {
@@ -67,86 +59,108 @@ void printStuckMessage(uint64_t nGenerations)
   refresh();
   }
 
-void handleInput()
-  {
-  bool bEndInput = false;
-  
-  while(!bEndInput)
-    {
-    int c = getch();
-    
-    switch(c)
-      {
-      case 'q':
-        goShouldRunMutex.lock();
-        bShouldRun = false;
-        goShouldRunMutex.unlock();
-        bEndInput = true;
-        break;
-      case 'r':
-        goShouldReseedMutex.lock();
-        bShouldReseed = true;
-        goShouldReseedMutex.unlock();
-        break;
-      default:
-        break;
-      }
-    }
-  }
-
-bool shouldRun()
-  {
-  goShouldRunMutex.lock();
-  bool returnValue = bShouldRun;
-  goShouldRunMutex.unlock();
-  return returnValue;
-  }
-
 int main(int argc, const char * argv[])
   {
   initscr();
   cbreak();
+  noecho();
+  nodelay(stdscr, true);
+  keypad(stdscr, true);
+  
+  int  nUserInput       = 0;
+  bool bBreak           = false;
+  bool bResetFrameDelay = false;
 
-  World oWorld(getmaxx(stdscr), getmaxy(stdscr));
+  World oWorld(getmaxx(stdscr), getmaxy(stdscr)-1);
   oWorld.Seed();
 
-  uint64_t nGenerations = 0;
+  std::chrono::microseconds oCurrentFrameDelay(60000), oOriginalFrameDelay(oCurrentFrameDelay), oMessageDelay(3000000),  oTimeStep(10000), oNullTime(0);
+  std::chrono::microseconds oWaitTime(0);
+  std::chrono::steady_clock::time_point oStartTimepoint, oEndTimepoint;
 
-  std::thread oUserInteractionThread(handleInput);
-
-  while(bShouldRun)
+  while(true)
     {
-    move(0,0);
-    printw(oWorld.StringRepresentation().c_str());
-    refresh();
-    oWorld.Update();
+    oStartTimepoint = std::chrono::steady_clock::now();
+    
+    nUserInput = getch();
     
     if(oWorld.IsStuck())
       {
-      printStuckMessage(nGenerations);
-      usleep(3000000);
-      nGenerations = 0;
+      printStuckMessage(oWorld.CurrentGeneration());
+      oOriginalFrameDelay = oCurrentFrameDelay;
+      bResetFrameDelay = true;
+      oCurrentFrameDelay += oMessageDelay;
       oWorld.Seed();
       }
-    else
+
+    switch (nUserInput)
       {
-      goShouldReseedMutex.lock();
-      if(bShouldReseed)
-        {
-        bShouldReseed = false;
-        nGenerations = 0;
+      case 'q':
+        bBreak = true;
+        break;
+      case 'r':
         oWorld.Seed();
-        }
-      goShouldReseedMutex.unlock();
+        break;
+      case KEY_UP:
+        if(oCurrentFrameDelay > oNullTime && oCurrentFrameDelay > oTimeStep)
+          {
+          if(bResetFrameDelay)
+            {
+            oOriginalFrameDelay -= oTimeStep;
+            }
+          else
+            {
+            oCurrentFrameDelay -= oTimeStep;
+            }
+          }
+        else
+          {
+          if(bResetFrameDelay)
+            {
+            oOriginalFrameDelay = oNullTime;
+            }
+          else
+            {
+            oCurrentFrameDelay = oNullTime;
+            }
+          }
+        break;
+      case KEY_DOWN:
+        if(bResetFrameDelay)
+          {
+          oOriginalFrameDelay += oTimeStep;
+          }
+        else
+          {
+          oCurrentFrameDelay += oTimeStep;
+          }
+        break;
+      default:
+        break;
       }
-    
-    nGenerations++;
-    
-    usleep(33333);
+
+    if(bBreak)
+      break;
+
+    oEndTimepoint = std::chrono::steady_clock::now();
+
+    oWaitTime += std::chrono::duration_cast<std::chrono::microseconds>(oEndTimepoint - oStartTimepoint);
+
+    if((oCurrentFrameDelay - oWaitTime) <= oNullTime)
+      {
+      if(bResetFrameDelay)
+        {
+        bResetFrameDelay = false;
+        oCurrentFrameDelay = oOriginalFrameDelay;
+        }
+      oWaitTime = oNullTime;
+      mvprintw(0, 0, oWorld.StringRepresentation().c_str());
+      mvprintw(getmaxy(stdscr) - 1, 0, "generation: %i", oWorld.CurrentGeneration());
+      refresh();
+      oWorld.Update();
+      }
     }
 
-  oUserInteractionThread.join();
-    
   endwin();
   
   return 0;

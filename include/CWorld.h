@@ -34,6 +34,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <stdint.h>
 #include <string>
 #include "CRing.h"
 #include "CFiniteRing.h"
@@ -48,7 +49,8 @@ class World
     fmo::Ring<fmo::Ring<Cell>>             m_oWorld;
     fmo::FiniteRing<std::string>           m_oGenerationBuffer = fmo::FiniteRing<std::string>(3);
     
-    bool m_bIsStuck = false;
+    bool     m_bIsStuck    = false;
+    uint64_t m_nGeneration = 0;
   
   protected:
     void Initialize();
@@ -65,6 +67,7 @@ class World
     
     std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false);
     bool IsStuck() { return m_bIsStuck; }
+    uint64_t CurrentGeneration() { return m_nGeneration; }
   };
 
 #endif
