@@ -1,0 +1,7 @@
+set(SOURCE
+   ${SOURCE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/CCell.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/CWorld.cpp
+   PARENT_SCOPE
+)
