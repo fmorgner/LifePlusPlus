@@ -41,9 +41,9 @@ void World::Initialize()
   {
   m_oWorld = fmo::Ring< fmo::Ring<Cell> >(m_nHeight, fmo::Ring<Cell>(m_nWidth));
 
-  for(int nRow = 0; nRow < m_oWorld.size(); nRow++)
+  for(int nRow = 0; nRow < m_oWorld.Size(); nRow++)
     {
-    for (int nColumn = 0; nColumn < m_oWorld[nRow].size(); nColumn++)
+    for (int nColumn = 0; nColumn < m_oWorld[nRow].Size(); nColumn++)
       {
       m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow-1][nColumn-1]);
       m_oWorld[nRow][nColumn].AddNeighbour(&m_oWorld[nRow-1][nColumn+0]);
