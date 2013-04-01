@@ -32,27 +32,38 @@
 #define Life___CFiniteRing_h
 
 #include <list>
+#include "CRing.h"
 
 namespace fmo
   {
 
-  template <typename T> class FiniteRing : public std::list<T>
+  template <typename T> class FiniteRing : public std::list<T>, public fmo::Ring<T>
     {
-    protected:
-      void resize(typename FiniteRing<T>::size_type n);
-      void resize(typename FiniteRing<T>::size_type n, typename FiniteRing<T>::value_type val);
+    public:
+      using size_type  = typename std::list<T>::size_type;
+      using value_type = typename std::list<T>::value_type;
       
-      FiniteRing();
+      using std::list<T>::begin;
+      using std::list<T>::end;
+      using std::list<T>::size;
+      using std::list<T>::pop_back;
 
     protected:
-      typename FiniteRing<T>::size_type m_nSizeLimit;
+      using std::list<T>::resize;
+
+      FiniteRing();
+      
+    protected:
+      size_type m_nSizeLimit;
 
     public:
-      FiniteRing(typename FiniteRing<T>::size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
+      FiniteRing(size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
       FiniteRing(std::initializer_list<T> oInitializerList) : std::list<T>(oInitializerList) { m_nSizeLimit = oInitializerList.size(); }
-      void Add(const typename FiniteRing<T>::value_type& val) { if(this->size() == m_nSizeLimit)  { this->pop_back(); } this->push_front(val); }
-      void Add(const typename FiniteRing<T>::value_type&& val) { if(this->size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+      
+      void Add(const value_type& val)  { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+      void Add(const value_type&& val) { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
 
+    
     };
 
   }
