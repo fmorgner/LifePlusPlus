@@ -48,7 +48,7 @@ class Cell
 
     void PrepareForNextGeneration();
     void Update() { m_bIsAlive = m_bWillBeAlive; }
-    bool IsAlive() { return m_bIsAlive; }
+    bool IsAlive() const { return m_bIsAlive; }
     void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.push_back(poNeighbour); }
     void Animate() { m_bIsAlive = true; }
   };

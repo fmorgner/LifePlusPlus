@@ -65,9 +65,9 @@ class World
     void Seed(unsigned int nSeed = 0);
     void Update();
     
-    std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false);
-    bool IsStuck() { return m_bIsStuck; }
-    uint64_t CurrentGeneration() { return m_nGeneration; }
+    const std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false) const;
+    const bool IsStuck() const { return m_bIsStuck; }
+    uint64_t CurrentGeneration() const { return m_nGeneration; }
   };
 
 #endif

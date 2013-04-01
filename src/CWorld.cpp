@@ -85,7 +85,7 @@ void World::Update()
   m_nGeneration++;
   }
 
-std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks)
+const std::string World::StringRepresentation(std::string sCellCharacter, bool bIncludingLinebreaks) const
   {
   std::string oStringRepresentation;
 
