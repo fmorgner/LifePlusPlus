@@ -38,20 +38,38 @@ namespace fmo
 
   template <typename T> class Ring : public std::vector<T>
     {
+    public:
+      using size_type  = typename std::vector<T>::size_type;
+      using value_type = typename std::vector<T>::value_type;
+      using allocator_type = typename std::vector<T>::allocator_type;
+      using ssize_t = long long;
+  
     protected:
-      typedef long long sizecast_t;
-      typename std::vector<T>::size_type RingIndex(sizecast_t nIndex) { return (nIndex % (sizecast_t) this->size() >= 0) ? (nIndex % (sizecast_t) this->size()) : ((nIndex % (sizecast_t) this->size()) + (sizecast_t) this->size()); }
+      using std::vector<T>::front;
+      using std::vector<T>::back;
+      using std::vector<T>::size;
+      using std::vector<T>::max_size;
+      using std::vector<T>::clear;
+      using std::vector<T>::empty;
+    
+      const size_type RingIndex(ssize_t nIndex) const { return (nIndex % (ssize_t) this->size() >= 0) ? (nIndex % (ssize_t) this->size()) : ((nIndex % (ssize_t) this->size()) + (ssize_t) this->size()); }
     
     public:
-      T const& operator[](sizecast_t i) const { return this->at(RingIndex(i)); }
-      T&       operator[](sizecast_t i)       { return this->at(RingIndex(i)); }
-    
-    public:
-      void Add(const typename std::vector<T>::value_type& val)  { this->push_back(val); }
-      void Add(const typename std::vector<T>::value_type&& val) { this->push_back(val); }
+      T const& operator[](ssize_t i) const { return this->at(RingIndex(i)); }
+      T&       operator[](ssize_t i)       { return this->at(RingIndex(i)); }
+
+      void Add(const value_type& val)  { this->push_back(val); }
+      void Add(const value_type&& val) { this->push_back(val); }
+      
+      size_type Size() const { return size(); }
+      size_type MaxSize() const { return max_size(); }
+      
+      void Clear() { clear(); }
+      
+      bool IsEmpty() const { return empty(); }
       
       Ring() : std::vector<T>() {}
-      Ring(typename Ring<T>::size_type nSize, const T& rValue = T(), const typename std::allocator<T>& rAllocator = std::allocator<T>()) : std::vector<T>(nSize, rValue, rAllocator) {}
+      Ring(size_type nSize, const T& rValue = T(), const allocator_type& rAllocator = allocator_type()) : std::vector<T>(nSize, rValue, rAllocator) {}
     };
 
   }
