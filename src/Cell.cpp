@@ -1,9 +1,9 @@
 /*
  *
- * FiniteRing.h
+ * CCell.cpp
  * Part of Life++ - Yet another implementation of the Game of Life in C++
  * -------------------------------------------------------------------------
- * begin                 : 2013-02-27
+ * begin                 : 2013-02-23
  * copyright             : Copyright (C) 2013 by Felix Morgner
  * email                 : felix.morgner@gmail.com
  * =========================================================================
@@ -28,44 +28,29 @@
  *
  */
 
-#ifndef Life___CFiniteRing_h
-#define Life___CFiniteRing_h
 
-#include <list>
-#include "CRing.h"
+#include "Cell.h"
+#include <cstdlib>
 
-namespace fmo
+void Cell::PrepareForNextGeneration()
   {
+  short nAliveCells = 0;
+  m_bWillBeAlive = false;
 
-  template <typename T> class FiniteRing : public std::list<T>, public fmo::Ring<T>
+  for(auto poCell : m_rpoNeighbours)
     {
-    public:
-      using size_type  = typename std::list<T>::size_type;
-      using value_type = typename std::list<T>::value_type;
-      
-      using std::list<T>::begin;
-      using std::list<T>::end;
-      using std::list<T>::size;
-      using std::list<T>::pop_back;
+    if(poCell->IsAlive())
+      {
+      nAliveCells++;
+      }
+    }
 
-    protected:
-      using std::list<T>::resize;
-
-      FiniteRing();
-      
-    protected:
-      size_type m_nSizeLimit;
-
-    public:
-      FiniteRing(size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
-      FiniteRing(std::initializer_list<T> oInitializerList) : std::list<T>(oInitializerList) { m_nSizeLimit = oInitializerList.size(); }
-      
-      void Add(const value_type& val)  { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
-      void Add(const value_type&& val) { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
-
-    
-    };
-
+  if((nAliveCells == 2 || nAliveCells == 3) && m_bIsAlive)
+    {
+    m_bWillBeAlive = true;
+    }
+  else if(nAliveCells == 3 && !m_bIsAlive)
+    {
+    m_bWillBeAlive = true;
+    }
   }
-
-#endif

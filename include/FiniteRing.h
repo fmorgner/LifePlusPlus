@@ -1,9 +1,9 @@
 /*
  *
- * CWorld.h
+ * FiniteRing.h
  * Part of Life++ - Yet another implementation of the Game of Life in C++
  * -------------------------------------------------------------------------
- * begin                 : 2013-02-23
+ * begin                 : 2013-02-27
  * copyright             : Copyright (C) 2013 by Felix Morgner
  * email                 : felix.morgner@gmail.com
  * =========================================================================
@@ -28,46 +28,59 @@
  *
  */
 
+#ifndef __FINITERING_H
+#define __FINITERING_H
 
-#ifndef __Life____CWorld__
-#define __Life____CWorld__
+#include <list>
+#include <algorithm>
 
-#include <cstddef>
-#include <cstdlib>
-#include <stdint.h>
-#include <string>
-#include "CRing.h"
-#include "CFiniteRing.h"
-#include "CCell.h"
+#include "Ring.h"
 
-class World
-  {  
-  protected:
-    fmo::Ring<fmo::Ring<Cell>>::size_type  m_nWidth  = 12;
-    decltype(m_nWidth)                     m_nHeight = 12;
-    
-    fmo::Ring<fmo::Ring<Cell>>             m_oWorld;
-    fmo::FiniteRing<std::string>           m_oGenerationBuffer = fmo::FiniteRing<std::string>(3);
-    
-    bool     m_bIsStuck    = false;
-    uint64_t m_nGeneration = 0;
-  
-  protected:
-    void Initialize();
-    
-  public:
-    World() { Initialize(); }
-    World(decltype(m_nWidth) nSize) : m_nWidth(nSize), m_nHeight(nSize) { Initialize(); }
-    World(decltype(m_nWidth) nWidth, decltype(m_nHeight) nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
-  
-  public:
-    void Animate(decltype(m_nWidth) nX, decltype(m_nHeight) nY) { m_oWorld[nY][nX].Animate(); }
-    void Seed(unsigned int nSeed = 0);
-    void Update();
-    
-    const std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false) const;
-    const bool IsStuck() const { return m_bIsStuck; }
-    uint64_t CurrentGeneration() const { return m_nGeneration; }
-  };
+namespace fmo
+  {
 
-#endif
+  template <typename T> class FiniteRing : public std::list<T>, public fmo::Ring<T>
+    {
+    public:
+      using size_type  = typename std::list<T>::size_type;
+      using value_type = typename std::list<T>::value_type;
+
+
+    protected:
+      using std::list<T>::resize;
+      using std::list<T>::size;
+      using std::list<T>::push_back;
+      using std::list<T>::pop_back;
+      using std::list<T>::push_front;
+      using std::list<T>::pop_front;
+      using std::list<T>::insert;
+      using std::list<T>::erase;
+      using std::list<T>::clear;
+
+      FiniteRing();
+
+    protected:
+      size_type m_nSizeLimit;
+
+    public:
+      using std::list<T>::begin;
+      using std::list<T>::end;
+
+      FiniteRing(size_type nSizeLimit) : m_nSizeLimit(nSizeLimit) {}
+      FiniteRing(std::initializer_list<T> oInitializerList) : std::list<T>(oInitializerList) { m_nSizeLimit = oInitializerList.size(); }
+
+      void Add(const value_type& val)  { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+      void Add(const value_type&& val) { if(size() == m_nSizeLimit) { this->pop_back(); } this->push_front(val); }
+
+      void Clear() { clear(); }
+
+      size_type Size() const { return size(); }
+
+      bool Contains(const value_type& value) const { return std::find(begin(), end(), value) != end(); }
+
+    };
+
+  }
+
+#endif // __FINITERING_H
+

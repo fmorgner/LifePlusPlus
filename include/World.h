@@ -1,6 +1,6 @@
 /*
  *
- * CCell.h
+ * CWorld.h
  * Part of Life++ - Yet another implementation of the Game of Life in C++
  * -------------------------------------------------------------------------
  * begin                 : 2013-02-23
@@ -29,29 +29,45 @@
  */
 
 
-#ifndef __Life____CCell__
-#define __Life____CCell__
+#ifndef __Life____CWorld__
+#define __Life____CWorld__
 
-#include "CRing.h"
+#include <cstddef>
+#include <cstdlib>
+#include <stdint.h>
+#include <string>
+#include "Ring.h"
+#include "FiniteRing.h"
+#include "Cell.h"
 
-class Cell;
-
-class Cell
+class World
   {
   protected:
-    bool  m_bIsAlive;
-    bool  m_bWillBeAlive = false;
-    fmo::Ring<Cell*> m_rpoNeighbours = fmo::Ring<Cell*>();
+    fmo::Ring<fmo::Ring<Cell>>::size_type  m_nWidth  = 12;
+    decltype(m_nWidth)                     m_nHeight = 12;
+
+    fmo::Ring<fmo::Ring<Cell>>             m_oWorld;
+    fmo::FiniteRing<std::string>           m_oGenerationBuffer = fmo::FiniteRing<std::string>(3);
+
+    bool     m_bIsStuck    = false;
+    uint64_t m_nGeneration = 0;
+
+  protected:
+    void Initialize();
 
   public:
-    Cell() : m_bIsAlive(false) {}
+    World() { Initialize(); }
+    World(decltype(m_nWidth) nSize) : m_nWidth(nSize), m_nHeight(nSize) { Initialize(); }
+    World(decltype(m_nWidth) nWidth, decltype(m_nHeight) nHeight) : m_nWidth(nWidth), m_nHeight(nHeight) { Initialize(); }
 
-    void PrepareForNextGeneration();
-    void Update() { m_bIsAlive = m_bWillBeAlive; }
-    bool IsAlive() const { return m_bIsAlive; }
-    void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.push_back(poNeighbour); }
-    void Animate() { m_bIsAlive = true; }
+  public:
+    void Animate(decltype(m_nWidth) nX, decltype(m_nHeight) nY) { m_oWorld[nY][nX].Animate(); }
+    void Seed(unsigned int nSeed = 0);
+    void Update();
+
+    const std::string StringRepresentation(std::string sCellCharacter = "o", bool bIncludingLinebreaks = false) const;
+    const bool IsStuck() const { return m_bIsStuck; };
+    uint64_t CurrentGeneration() const { return m_nGeneration; }
   };
-
 
 #endif

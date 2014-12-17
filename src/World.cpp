@@ -28,7 +28,7 @@
  *
  */
 
-#include "CWorld.h"
+#include "World.h"
 #include <iostream>
 #include <algorithm>
 
@@ -60,7 +60,7 @@ void World::Initialize()
 void World::Update()
   {
   m_oGenerationBuffer.Add(this->StringRepresentation());
-  
+
   for(auto& oRow : m_oWorld)
     {
     for(auto& oCell : oRow)
@@ -76,11 +76,8 @@ void World::Update()
       oCell.Update();
       }
     }
-  
-  if(std::find(m_oGenerationBuffer.begin(), m_oGenerationBuffer.end(), this->StringRepresentation()) != m_oGenerationBuffer.end())
-    {
-    m_bIsStuck = true;
-    }
+
+  m_bIsStuck = m_oGenerationBuffer.Contains(StringRepresentation());
 
   m_nGeneration++;
   }
@@ -100,7 +97,7 @@ const std::string World::StringRepresentation(std::string sCellCharacter, bool b
       oStringRepresentation += '\n';
       }
     }
-  
+
   return oStringRepresentation;
   }
 
@@ -113,11 +110,11 @@ void World::Seed(unsigned int nSeed)
 
   if(!nSeed)
     {
-    #if defined(__APPLE__) && defined(__MACH__)
+#if defined(__APPLE__) && defined(__MACH__)
     srandomdev();
-    #else
+#else
     srand(time(NULL));
-    #endif
+#endif
     }
   else
     {

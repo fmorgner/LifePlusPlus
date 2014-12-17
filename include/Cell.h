@@ -1,6 +1,6 @@
 /*
  *
- * CCell.cpp
+ * CCell.h
  * Part of Life++ - Yet another implementation of the Game of Life in C++
  * -------------------------------------------------------------------------
  * begin                 : 2013-02-23
@@ -29,28 +29,29 @@
  */
 
 
-#include "CCell.h"
-#include <cstdlib>
+#ifndef __CELL_H
+#define __CELL_H
 
-void Cell::PrepareForNextGeneration()
+#include "Ring.h"
+
+class Cell;
+
+class Cell
   {
-  short nAliveCells = 0;
-  m_bWillBeAlive = false;
-  
-  for(auto poCell : m_rpoNeighbours)
-    {
-    if(poCell->IsAlive())
-      {
-      nAliveCells++;
-      }
-    }
-  
-  if((nAliveCells == 2 || nAliveCells == 3) && m_bIsAlive)
-    {
-    m_bWillBeAlive = true;
-    }
-  else if(nAliveCells == 3 && !m_bIsAlive)
-    {
-    m_bWillBeAlive = true;
-    }
-  }
+  protected:
+    bool  m_bIsAlive;
+    bool  m_bWillBeAlive = false;
+    fmo::Ring<Cell*> m_rpoNeighbours = fmo::Ring<Cell*>();
+
+  public:
+    Cell() : m_bIsAlive(false) {}
+
+    void PrepareForNextGeneration();
+    void Update() { m_bIsAlive = m_bWillBeAlive; }
+    bool IsAlive() const { return m_bIsAlive; }
+    void AddNeighbour(Cell* poNeighbour) { m_rpoNeighbours.push_back(poNeighbour); }
+    void Animate() { m_bIsAlive = true; }
+  };
+
+
+#endif // __CELL_H

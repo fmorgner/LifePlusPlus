@@ -31,31 +31,31 @@
 #include <string>
 #include <sstream>
 #include <ncurses.h>
-#include "CWorld.h"
+#include "World.h"
 #include <inttypes.h>
 #include <chrono>
 
 void printStuckMessage(uint64_t nGenerations)
   {
   clear();
-  
+
   int nPosX, nPosY;
 
   std::string sMessageStuck = "The simulation got stuck. Reseeding...";
   std::ostringstream sMessageGenerations;
-  
+
   sMessageGenerations << "Got stuck after " << nGenerations << " generations.";
-  
+
   nPosX = (getmaxx(stdscr) - (int) sMessageStuck.length()) / 2;
   nPosY = getmaxy(stdscr) / 2;
-  
+
   mvprintw(nPosY, nPosX, sMessageStuck.c_str());
-  
+
   nPosX = (getmaxx(stdscr) - (int) sMessageGenerations.str().length()) / 2;
   nPosY = getmaxy(stdscr) / 2 + 1;
 
   mvprintw(nPosY, nPosX, sMessageGenerations.str().c_str());
-  
+
   refresh();
   }
 
@@ -66,7 +66,7 @@ int main(int argc, const char * argv[])
   noecho();
   nodelay(stdscr, true);
   keypad(stdscr, true);
-  
+
   int  nUserInput       = 0;
   bool bBreak           = false;
   bool bResetFrameDelay = false;
@@ -74,15 +74,15 @@ int main(int argc, const char * argv[])
   World oWorld(getmaxx(stdscr), getmaxy(stdscr)-1);
   oWorld.Seed();
 
-  std::chrono::microseconds oCurrentFrameDelay(60000), oOriginalFrameDelay(oCurrentFrameDelay), oMessageDelay(3000000),  oTimeStep(10000), oNullTime(0), oWaitTime(0);
+  std::chrono::microseconds oCurrentFrameDelay(60000), oOriginalFrameDelay(oCurrentFrameDelay), oMessageDelay(300000),  oTimeStep(10000), oNullTime(0), oWaitTime(0);
   std::chrono::steady_clock::time_point oStartTimepoint, oEndTimepoint;
 
   while(true)
     {
     oStartTimepoint = std::chrono::steady_clock::now();
-    
+
     nUserInput = getch();
-    
+
     if(oWorld.IsStuck())
       {
       printStuckMessage(oWorld.CurrentGeneration());
@@ -161,6 +161,6 @@ int main(int argc, const char * argv[])
     }
 
   endwin();
-  
+
   return 0;
   }
